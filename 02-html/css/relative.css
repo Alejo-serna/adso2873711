@@ -57,14 +57,18 @@ main {
     
          
 
-/* @media screen and (min-width: 570px) {
+ @media (max-width: 500px) {
+    main {
     header {
         flex-direction: column;
+        gap: 0.5rem;
         a:is(:link, :visited) {
             display: flex;
+            justify-content: center;
             align-items: center;
-            width: 80%;
+            width: 98% !important;
             
-        }
+            }
+        }   
     }
-} */
+} 
