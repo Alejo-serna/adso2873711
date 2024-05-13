@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge 🐴</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Whisper&display=swap" rel="stylesheet">
+    <style> 
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
        * {
         transition: all 0.2s ease-in;
        } 
        body {
         background-color: red;
         color: blue;
-        font-family: Poppins, sans-serif;
+        .whisper-regular {
+        font-family: "Whisper", cursive;
+        font-weight: 400;
+        font-style: normal;
         font-size: 3rem;
        }
+    }
        main {
         padding: 2rem;
        }
@@ -43,6 +50,21 @@
             justify-content: center;
             background-size: 300px;
         }
+        div div p.gh1 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+
+        }
+        p.gh1:is(:hover) {
+            background-color: orange;
+            transform: scale(1.1);
+        }
         div div.prj2 {
             border: black solid;
             display: flex;
@@ -52,6 +74,22 @@
             width: 300px;
             justify-content: center;
             background-size: 300px;
+            color: black;
+        }
+        div div p.gh2 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+
+        }
+        p.gh2:is(:hover) {
+            background-color: orange;
+            transform: scale(1.1);
         }
         div div.prj3 {
             border: black solid;
@@ -62,6 +100,22 @@
             width: 300px;
             justify-content: center;
             background-size: 300px;
+            color: black;
+        }
+        div div p.gh3 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+
+        }
+        p.gh3:is(:hover) {
+            background-color: orange;
+            transform: scale(1.1);
         }
         div div.prj4 {
             border: black solid;
@@ -72,73 +126,140 @@
             width: 300px;
             justify-content: center;
             background-size: 300px;
+            color: black;
+        }
+        div div p.gh4 {
+            color: black;
+            background-color: aqua;
+            display: flex;
+            padding: 6px;
+            width: 265px;
+            justify-content: center;
+            top: 300px;
+            transition: transform 0.5s ease-in;
+        }
+        p.gh4:is(:hover) {
+            background-color: orange;
+            transform: scale(1.1);
         }
         div.paragraphs{
             background-color: #0009;
             display: flex;
             flex-direction: column;
-            width: 720px;
+            width: 1250px;
             padding: 0.5rem;
             gap: 0.5rem;
         }
-        div.contenedor{
+        div div.contenedor{
             display: flex;
             flex-direction: row;
-            gap: 2rem;
-            background-color: red;
+            background-color: white;
+            gap: 4rem;
             height: 200px;
             align-items: center;
         }
         div.dgb2{
             display: flex;
             flex-direction: row;
-            width: 100px;
-            height: 100px;
+            width: 925px;
+            height: 195px;
+            background: url(Images/goky-ultra-instinto.jpg) ;
+            background-position: -80px -1184px;
+            background-size: 351px;
+            border: black solid;
+        }
+        div.dgb3{
+            display: flex;
+            flex-direction: row;
+            width: 975px;
+            height: 195px;
             background: url(Images/dragon-ball-z-transformacion-gohan-castellano_1.jpg);
-            background-position: -280px -1090px;
+            background-position: -55px -1150px;
+            background-size: 300px;
+            border: black solid;
         }
         p {
-            width: 60%;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: flex;
-            text-align: justify;
+            text-align: left;
+            color: black;
         }
-        div.sp3{
-            background: url() no-repeat; /*bola de dragon image*/
-            background-position: -90px -200px;
+        p:is(:hover){
+            color: blueviolet;
+            cursor: pointer;
+        }
+        h2 {
+            font-family: "Permanet Marker", cursive;
+            font-size: 1.4rem;
+            margin: 0;
+            
+        }
+        main header figure figure.shen {
+            background: url(Images/Shen_Long_Artwork.png) no-repeat; /*bola de dragon image*/
+            background-size: 900px;
+            background-position: 0px 500px;
             display: flex;
-            width: 110px;
-            height: 170px;
+            width: 900px;
+            height: 900px;
         }
+        div.kame {
+            background: url(Images/how-about-the-nimbus-cloud-that-he-rides-or-his-extending-son-goku-on-cloud-11562894852eiuuk5ezwo.png) no-repeat center;
+            background-size: 200px;
+            background-position: 950px 60px;
+            display: flex;
+            position: absolute;
+            width: 1500px;
+            height: 400px;
+        }
+        div.roshi {
+            background: url(Images/Muten_Roshi.png) no-repeat center;
+            background-size: 200px;
+            background-position: 100px 150px;
+            display: flex;
+            position: absolute;
+            width: 1500px;
+            height: 400px;
+        }
+        
     
     </style>
 </head>
 <body>
     <main>
     <header>
-        <figure class="logo"></figure>
+        <div class="roshi"></div>
+        <div class="kame"></div>
+        <figure class="logo">
+            <figure class="shen"></figure>
+        </figure>
         <div class="imagenes">
-            <div class="prj1"></div>
-            <div class="prj2"></div>
-            <div class="prj3"></div>
-            <div class="prj4"></div>
-        </div>
-        <div class="parrafos">
-            <div class=" contenedor">
-                <div class="img1"></div>
-                <p></p>
+            <div class="prj1">
+                <p class="gh1">Gohan Mad</p>
+            </div>
+            <div class="prj2">
+                <p class="gh2">Gohan From the Past</p>
+            </div>
+            <div class="prj3">
+                <p class="gh3">Gohan Impressed</p>
+            </div>
+            <div class="prj4">
+                <p class="gh4">Gohan Ssj2</p>
             </div>
         </div>
+        <br>
+        <br>
         <div class="paragraphs">
             <div class="contenedor">
                 <div class="dgb2"></div>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident accusamus earum sequi quo quaerat autem consequatur repudiandae nisi blanditiis voluptates nostrum consectetur ullam repellat vel deserunt, velit eveniet magni corrupti in id aspernatur illo itaque mollitia. Dolorem obcaecati architecto odio nihil voluptatibus vero id, deserunt incidunt optio, velit et amet.</p>
-                <div class="dgb3"></div>
+                <h2>FATHER
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem minima voluptatem minus quibusdam nemo enim impedit voluptas culpa dolorem, ratione perspiciatis repellat natus quis est iure quisquam inventore sint. Hic recusandae sit quos, eaque perferendis cumque corporis libero assumenda asperiores quo ratione blanditiis sed nesciunt doloribus, sequi ea dolor quaerat id nostrum! Quisquam, ut consectetur ullam hic nam illo! Aperiam maiores numquam facere nam sed fugiat provident saepe! Iusto, consequatur.</p>
+                </h2>
             </div>
             <div class="contenedor">
-                <div class="dgb2"></div>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident accusamus earum sequi quo quaerat autem consequatur repudiandae nisi blanditiis voluptates nostrum consectetur ullam repellat vel deserunt, velit eveniet magni corrupti in id aspernatur illo itaque mollitia. Dolorem obcaecati architecto odio nihil voluptatibus vero id, deserunt incidunt optio, velit et amet.</p>
                 <div class="dgb3"></div>
+                <h2>SON
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae molestias voluptatibus deleniti assumenda ipsa iure eos quam mollitia temporibus, atque pariatur dolorum perferendis aspernatur at consectetur. Vero atque tempore rerum id, ex sapiente modi facere temporibus ea voluptatum blanditiis laudantium sit libero sint quisquam accusantium illo quaerat architecto. Hic consequuntur voluptas autem voluptatem possimus necessitatibus in quasi expedita magnam quis? Quisquam alias ad natus assumenda, aliquam accusantium ipsum maxime magni!</p>
+                </h2>
             </div>
         </div>
     </header>
