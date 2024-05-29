@@ -6,6 +6,7 @@ header {
   font-family: "Arimo", sans-serif;
   justify-content: space-between;
   padding: 20px;
+  background-color: aqua;
 }
 
 header ul {
@@ -44,7 +45,7 @@ header ul li:is(:hover) {
     top: 80px;
     left: 0;
     width: 100%;
-    background-color: #f2f2f2;
+    background-color: gray;
     padding: 20px;
   }
   .toggle-menu:checked ~ .menu {
