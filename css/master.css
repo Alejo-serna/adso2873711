@@ -90,5 +90,10 @@ main {
         transform: scale(1.4) rotate(360deg); 
         }
 
+        a.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
     }
 }
