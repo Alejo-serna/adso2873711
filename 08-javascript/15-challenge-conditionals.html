@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge</title>
+    <link rel="stylesheet" href="css/master.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgba(0, 0, 255, 0.171);
+        }
+
+        header h1 {
+            text-align: center;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        section.dark {
+            background: url("/08-JavaScript/images/conditional/bg-dark.svg") no-repeat center;
+            background-size: cover;
+            color: #fff;
+        }
+
+        
+        section.day {
+            background: url("./images/conditional/bg.svg") no-repeat center;
+            background-size: cover;
+            color: black;
+        }
+
+        section {
+            position: relative;
+            justify-content: center;
+            border-radius: 15px;
+            margin: 0 auto;
+            height: 400px;
+            width: 400px;
+            background-color: transparent;
+        }
+
+        section div.query {
+            margin: 0 auto;
+            width: 260px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        section div.query input {
+            background-color: #f0db4f;
+            border: 2px solid #fff;
+            outline: none;
+            padding: 0.4rem;
+            border-radius: 8px;
+            transition: background-color 0.4s ease-in;
+            font-family: 'Poppins';
+            width: 200px;
+        }
+
+        section div.query button {
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            background-color: #0009;
+            font-family: 'Poppins';
+            padding: 0.5rem;
+            transition: background-color 0.4s ease-in;
+            width: 216px;
+        }
+
+        section h3 {
+            text-align: center;
+            padding: 0.3rem;
+        }
+
+        section img.icon {
+            zoom: 3;
+        }
+
+        div.locate {
+            background: url("./images/conditional/locate.svg") no-repeat;
+            height: 35px;
+            width: 35px;
+            background-size: 35px;
+        }
+
+        section.dark div.locate {
+            background: url("./images/conditional/locate-dark.svg") no-repeat;
+            background-size: 35px;
+            color: white;
+        }
+
+        section.dark .city,
+        section.dark .temp {
+            color: white; 
+        }
+        
+        section.day .city,
+        section.day .temp {
+            color: black; 
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>Challenge</h1>
+        </header>
+
+        <section class="flex flex-col items-center container bg-transparent">
+            <div class="query">
+                <h5>Type City:</h5>
+                <input type="text">
+                <button>Show</button>
+            </div>
+            <h4 class="country text-[15px]"></h4>
+            <div class="flex items-center">
+                <div class="locate"></div>
+                <h3 class="city text-[24px] font-bold text-black border-none"></h3>
+            </div>
+            <div class="flex">
+                <h4 class="temp text-[48px] font-bold z-[100] text-black"></h4>
+                <img src="" alt="Icon" class="icon absolute items-center justify-center z-1 w-[30px] top-[65px]">
+            </div>
+            <h4 class="condition w-[180px] h-[25px] bg-[#0003] text-[12px] flex items-center rounded-[20px] justify-center mb-3"></h4>
+            <div class="flex gap-3">
+                <h4 class="humidity w-[95px] h-[25px] bg-[#0003] text-[12px] flex items-center rounded-[20px] justify-center"></h4>
+                <h4 class="cloud w-[95px] h-[25px] bg-[#0003] text-[12px] flex items-center rounded-[20px] justify-center"></h4>
+            </div>
+            <h4 class="update w-[180px] h-[25px] bg-[#0003] text-[12px] flex items-center rounded-[20px] justify-center mb-3 relative top-3"></h4>
+        </section>
+    </main>
+
+    <script>
+        const query = document.querySelector('.query input');
+        const show = document.querySelector('.query button');
+        let q = 'Manizales';
+
+        // Eventos
+        show.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (query.value != '') {
+                q = query.value;
+                loadWeather(q);
+                query.value = '';
+            }
+        });
+
+        const temp = document.querySelector('.temp');
+        const icon = document.querySelector(".icon");
+        const country = document.querySelector(".country");
+        const city = document.querySelector(".city");
+        const condition = document.querySelector(".condition");
+        const humidity = document.querySelector(".humidity");
+        const cloud = document.querySelector(".cloud");
+        const update = document.querySelector(".update");
+        const section = document.querySelector("section");
+
+        const loadWeather = async (q) => {
+            const url = 'http://api.weatherapi.com/v1/current.json?key=9711613e634d413785c161102241511&q=' + q;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            
+            temp.textContent = data.current.temp_c + '°';
+            icon.setAttribute('src', data.current.condition.icon);
+            country.textContent = data.location.country;
+            city.textContent = data.location.name;
+            condition.textContent = "Condition: " + data.current.condition.text;
+            humidity.textContent = "Humidity: " + data.current.humidity;
+            cloud.textContent = "Cloud: " + data.current.cloud;
+            update.textContent = "" + data.location.localtime;
+
+            let isDay = data.current.is_day ? true : false;
+
+           
+            section.classList.remove('day', 'dark');
+
+            console.log('isDay:', isDay);
+
+            if (isDay) {
+                section.classList.add('day');  
+                console.log('Se añadió la clase "day"');  
+            } else {
+                section.classList.add('dark');  
+                console.log('Se añadió la clase "dark"');  
+            }
+        };
+
+        loadWeather(q);
+    </script>
+</body>
+
+</html>
