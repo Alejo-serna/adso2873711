@@ -3,30 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template</title>
-    <link rel="stylesheet" href="css/master.css">
+    <title>Challenge Array</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
-       
-    </style>
-   
-</head>
-
-<body>
-    <nav class="controls">
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
-
-    </nav>
-    <main>
-        <header>
-        <h1>Reto Array</h1>
-        <h2>Description</h2>
-        </header>
-        <section>
-            
-        </section>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000c; 
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            overflow-x: hidden; /* Elimina el scroll horizontal */
+        }
         
-    </main>
+        .app-container {
+            background-color: #0009;
+            border: 4px solid;
+            border-radius: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding-top: 20px;
+            overflow-x: hidden; /* Elimina el scroll horizontal */
+        }
+
+        .containers {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            width: 100%;
+            padding-top: 10px;
+        }
+        
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+        
+        .princ {
+            color: rgb(55, 55, 224);
+        }
+
+        .sec {
+            color: red;
+        }
+
+        .img {
+            display: flex;
+        }
+        .gokuimg{
+            cursor: pointer;
+            &:hover{
+                transition: all ease-in 0.2s;
+                transform: scale(1.2);
+            }
+        }
+
+        .imgAb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+    
+        }
+
+        h2 {
+            display: flex;
+            font-display: row;
+            text-align: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #fff;
+            font-family: 'Sansita', sans-serif;
+            transition: text-shadow 0.3s ease;
+            &:hover {
+            text-shadow: 0 10px 10px red;
+            }
+        }
+
+        .textA {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            line-height: 0.1;
+            color: #fff;
+            margin: 3rem;
+            font-family: 'Sansita', sans-serif;
+            transition: text-shadow 0.3s ease;
+            &:hover {
+            text-shadow: 0 10px 10px red;
+            }
+        }
+        
+
+        .option {
+            display: flex;
+            font-display: row;
+            text-align: center;
+            justify-content: center;
+            margin-top: .1rem;
+            color: #fff;
+        }
+
+        .buts {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: -5px;
+        }
+
+        .alr {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1px;
+        }
+
+        .but1 {
+            border-radius: 10px;
+            border: 2px solid rgb(10, 73, 167);
+            cursor: pointer;
+            transition: all ease-in 0.4s;   
+            font-family: 'Sansita', sans-serif;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+
+        .inp1 {
+            border-radius: 10px;
+            border: 2px solid rgb(11, 108, 255);
+            text-align: center;
+            width: 5rem;
+            height: 2rem;
+            font-family: 'Sansita', sans-serif;
+        }
+
+        .suma {
+            background-color: #407e45;
+            border-radius: 30px;
+            margin: 30px;
+            color: #fff;
+            font-size: 40px;
+            padding: 0 1rem;
+            cursor: grab;
+            transition: box-shadow 0.3s ease;
+            &:hover {
+                box-shadow: 0px 0px 10px #00ff15;
+            }
+        }
+
+        .sumada {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            
+        }
+         
+        /* Estilo para el scrollbar personalizado */
+        .app-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .app-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .app-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .app-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+    <div class="containers">
+        <img src="images/image 1.png" alt="Logo" class="logo">
+    </div>
+    <div class="textA">
+        <h1>SELECT YOUR OWN</h1> 
+        <h1>FIGHTER</h1>
+    </div>
+        <div class="img">
+            <img class="gokuimg" src="images/image 2.png" alt="GokuNorm" >
+            <img class="gokuimg" src="images/image 3.png" alt="GokuSayan3" >
+            <img class="gokuimg" src="images/image 4.png" alt="GokuSayan4" >
+        </div>
+        <div class="imgAb">
+            <img class="gokuimg" src="images/image 5.png" alt="Krilin" id="krilin" >
+            <img class="gokuimg" src="images/image 6.png" alt="Piccoro" id="piccoro" >
+        </div>
+        <h2 class="option">SELECT THE OPTION</h2>
+        <div class="buts">
+        <div class="alr">
+            <button class="but1">
+                FIRST
+            </button>
+        </div>
+        <div class="alr">
+            <button class="but1">
+                ADD
+            </button>
+        </div>
+            <input type="number" class="inp1" min="0" step="1" placeholder="Num:">
+        </div>
+        <div class="sumada">
+            <button class="suma">
+                +
+            </button>
+        </div>
+        <h2 class="option">RESULTS</h2>
+    </div>
+    <script>
+        const imagenes = document.querySelectorAll("img")
+    </script>
 </body>
 </html>
