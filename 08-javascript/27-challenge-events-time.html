@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donkey Kong - Esquiva Barriles</title>
+    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/P80eaNfkOUwtnt3aNsgmTh/Untitled?node-id=0-1&embed-host=share" allowfullscreen></iframe>
+    <title>SernaKong - Esquiva Barriles</title>
     <style>
+
+        
         body {
             margin: 0;
             overflow: hidden;
@@ -15,27 +18,38 @@
             align-items: center;
             height: 100vh;
         }
-        #game-container {
+        #game {
             position: relative;
             width: 800px;
             height: 600px;
             background-image: linear-gradient(to bottom, #87CEEB 70%, #654321 70%);
             overflow: hidden;
         }
-        #floor {
+        #sky-text {
             position: absolute;
-            bottom: 0;
+            top: 80px;
+            left: 0;
             width: 100%;
-            height: 50px;
-            background-color: #654321;
-            background-image: linear-gradient(to right, #8B4513 0%, #A52A2A 20%, #8B4513 40%, #A52A2A 60%, #8B4513 80%, #A52A2A 100%);
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+            z-index: 3;
         }
-        #platform {
+        #floor { position: absolute; bottom: 0; width: 100%; height: 50px; background-color: #654321; }
+        #platform { position: absolute; bottom: 50px; width: 100%; height: 20px; background-color: #A52A2A; }
+        #upper-platform { position: absolute; top: 150px; right: 50px; width: 200px; height: 20px; background-color: #A52A2A; }
+        #ladder {
             position: absolute;
-            bottom: 50px;
-            width: 100%;
-            height: 20px;
-            background-color: #A52A2A;
+            top: 170px;
+            right: 170px;
+            width: 40px;
+            height: 350px;
+            background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 15px, #CD853F 15px, #CD853F 25px);
+            border-left: 3px solid #8B4513;
+            border-right: 3px solid #8B4513;
+            z-index: 5;
         }
         #player {
             position: absolute;
@@ -43,9 +57,29 @@
             height: 80px;
             bottom: 70px;
             left: 100px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 80"><rect x="15" y="0" width="30" height="20" fill="red"/><rect x="10" y="20" width="40" height="20" fill="red"/><rect x="5" y="40" width="50" height="20" fill="blue"/><rect x="15" y="60" width="10" height="20" fill="blue"/><rect x="35" y="60" width="10" height="20" fill="blue"/><rect x="0" y="30" width="10" height="10" fill="%23F5DEB3"/><rect x="50" y="30" width="10" height="10" fill="%23F5DEB3"/></svg>');
+            transition: left 0.1s, bottom 0.1s;
+            z-index: 10;
+        }
+        #player img { width: 100%; height: 100%; object-fit: contain; }
+        #donkey {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: 30px;
+            right: 100px;
+            z-index: 10;
+        }
+        #donkey img { width: 100%; height: 100%; object-fit: contain; transform: scaleX(-1); }
+        #donkey-barrel {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 90px;
+            right: 140px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="18" ry="15" fill="%238B4513" stroke="black" stroke-width="2"/><line x1="2" y1="20" x2="38" y2="20" stroke="black" stroke-width="2"/><line x1="20" y1="5" x2="20" y2="35" stroke="black" stroke-width="2"/><line x1="6" y1="10" x2="34" y2="30" stroke="black" stroke-width="1"/><line x1="6" y1="30" x2="34" y2="10" stroke="black" stroke-width="1"/></svg>');
             background-repeat: no-repeat;
-            transition: bottom 0.3s;
+            z-index: 5;
+            display: none;
         }
         .barrel {
             position: absolute;
@@ -53,16 +87,7 @@
             height: 40px;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="18" ry="15" fill="%238B4513" stroke="black" stroke-width="2"/><line x1="2" y1="20" x2="38" y2="20" stroke="black" stroke-width="2"/><line x1="20" y1="5" x2="20" y2="35" stroke="black" stroke-width="2"/><line x1="6" y1="10" x2="34" y2="30" stroke="black" stroke-width="1"/><line x1="6" y1="30" x2="34" y2="10" stroke="black" stroke-width="1"/></svg>');
             background-repeat: no-repeat;
-            bottom: 70px;
-        }
-        #donkey {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            bottom: 70px;
-            right: 50px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><ellipse cx="60" cy="40" rx="40" ry="30" fill="%23964B00"/><rect x="30" y="40" width="60" height="60" fill="%23964B00" rx="10" ry="10"/><circle cx="45" cy="30" r="8" fill="white"/><circle cx="45" cy="30" r="4" fill="black"/><circle cx="75" cy="30" r="8" fill="white"/><circle cx="75" cy="30" r="4" fill="black"/><ellipse cx="60" cy="55" rx="15" ry="10" fill="%23654321"/><rect x="20" y="60" width="20" height="40" fill="%23964B00" rx="5" ry="5"/><rect x="80" y="60" width="20" height="40" fill="%23964B00" rx="5" ry="5"/><rect x="35" y="100" width="20" height="15" fill="%23964B00" rx="5" ry="5"/><rect x="65" y="100" width="20" height="15" fill="%23964B00" rx="5" ry="5"/></svg>');
-            background-repeat: no-repeat;
+            z-index: 6;
         }
         #score {
             position: absolute;
@@ -71,30 +96,28 @@
             color: white;
             font-size: 24px;
             text-shadow: 2px 2px 4px #000000;
+            z-index: 20;
         }
-        #lives {
-            position: absolute;
-            top: 60px;
-            left: 20px;
-            color: white;
-            font-size: 24px;
-            text-shadow: 2px 2px 4px #000000;
-        }
-        #game-over {
+        #game-over, #start-screen, #victory-screen {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: red;
+            color: white;
             font-size: 48px;
-            display: none;
             text-align: center;
             text-shadow: 2px 2px 4px #000000;
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            z-index: 100;
         }
-        #restart-btn {
+        #game-over { color: red; display: none; }
+        #victory-screen { color: #FFD700; display: none; }
+        #start-screen { color: yellow; display: block; }
+        button {
             display: block;
             margin: 20px auto 0;
             padding: 10px 20px;
@@ -104,234 +127,326 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 18px;
+            transition: transform 0.2s;
         }
-        .barrel-rolling {
-            animation: roll 0.5s infinite linear;
-        }
-        @keyframes roll {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        #start-btn { background-color: #00AA00; font-size: 24px; padding: 15px 30px; }
+        #victory-restart-btn { background-color: #FFD700; color: #000; }
+        button:hover { transform: scale(1.1); }
+        .game-title { color: #FF9900; font-size: 56px; margin-bottom: 20px; text-shadow: 3px 3px 6px #000000; }
+        .game-instructions { font-size: 20px; margin-bottom: 30px; }
+        .barrel-rolling { animation: roll 0.5s infinite linear; }
+        .barrel-falling { animation: fall 1s forwards; }
+        @keyframes roll { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fall { 0% { top: 110px; right: 140px; } 100% { top: 170px; right: 190px; } }
+        @keyframes jump { 0% { bottom: 70px; } 50% { bottom: 220px; } 100% { bottom: 70px; } }
+        @keyframes celebrate { 0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
     </style>
 </head>
 <body>
-    <div id="game-container">
+    <div id="game">
+        <div id="sky-text">Sernakongs</div>
         <div id="floor"></div>
         <div id="platform"></div>
-        <div id="player"></div>
-        <div id="donkey"></div>
+        <div id="upper-platform"></div>
+        <div id="ladder"></div>
+        <div id="player"><img src="images/MarioHub_Overview_Mario_sideimg_mario.png" alt="Mario"></div>
+        <div id="donkey"><img src="images/which-version-of-dk-is-your-favorite-v0-wxjl5ppmcadc1.png" alt="DonkeyKong"></div>
+        <div id="donkey-barrel"></div>
         <div id="score">Puntuación: 0</div>
-        <div id="lives">Vidas: 3</div>
-        <div id="game-over">
-            ¡JUEGO TERMINADO!
-            <button id="restart-btn">Reiniciar</button>
+        <div id="start-screen">
+            <div class="game-title">SERNAKONG</div>
+            <div class="game-instructions">
+                ESQUIVA LOS BARRILES!<br>
+                USA EL ESPACIO PARA SALTAR!<br>
+                USA LAS FLECHAS PARA MOVER A MARIO!
+            </div>
+            <button id="start-btn">EMPEZAR</button>
+        </div>
+        <div id="game-over">SERNAKONG TERMINADO<button id="restart-btn">REINICIAR</button></div>
+        <div id="victory-screen">
+            HAS DERROTADO A SERNAKONG!
+            <div style="font-size: 24px; margin-top: 10px;">Puntuación: <span id="final-score">0</span></div>
+            <button id="victory-restart-btn">JUGAR DE NUEVO</button>
         </div>
     </div>
 
     <script>
-        // Variables del juego
-        let score = 0;
-        let lives = 3;
-        let isJumping = false;
-        let isGameOver = false;
-        let barrelInterval;
-        let gameSpeed = 3;
-        let barrels = [];
+        let score = 0, isJumping = false, isClimbing = false, isGameOver = false, isVictory = false, isGameStarted = false;
+        let barrelInterval, gameSpeed = 3, barrelSpeed = 2, barrels = [];
+        let playerPosition = { x: 100, y: 70 };
+        let playerMovement = { left: false, right: false, up: false };
+        let barrelCount = 1;
+        let multipleBarrelsTimer = null; 
+        const ladderXPosition = 590;
 
-        // Elementos DOM
+        const game = document.getElementById('game');
         const player = document.getElementById('player');
         const donkey = document.getElementById('donkey');
+        const donkeyBarrel = document.getElementById('donkey-barrel');
         const scoreElement = document.getElementById('score');
-        const livesElement = document.getElementById('lives');
-        const gameOverElement = document.getElementById('game-over');
-        const restartBtn = document.getElementById('restart-btn');
-        const gameContainer = document.getElementById('game-container');
+        const ladder = document.getElementById('ladder');
+        const screens = {
+            start: document.getElementById('start-screen'),
+            gameOver: document.getElementById('game-over'),
+            victory: document.getElementById('victory-screen')
+        };
+        const finalScoreElement = document.getElementById('final-score');
 
-        // Función para hacer saltar al jugador
+    
         function jump() {
-            if (!isJumping && !isGameOver) {
+            if (!isJumping && !isGameOver && !isVictory && isGameStarted && !isClimbing) {
                 isJumping = true;
-                player.style.bottom = '220px';
-                
-                setTimeout(() => {
-                    player.style.bottom = '70px';
-                    setTimeout(() => {
-                        isJumping = false;
-                    }, 300);
-                }, 500);
+                player.style.animation = 'jump 0.8s forwards';
+                setTimeout(() => { player.style.animation = ''; isJumping = false; }, 800);
             }
         }
 
-        // Animación de Donkey Kong
-        function animateDonkey() {
-            donkey.style.bottom = '90px';
-            setTimeout(() => {
-                donkey.style.bottom = '70px';
-                setTimeout(() => {
-                    donkey.style.bottom = '90px';
-                    setTimeout(() => {
-                        donkey.style.bottom = '70px';
-                    }, 100);
-                }, 100);
-            }, 100);
+        function movePlayer() {
+            if (isClimbing) {
+                playerPosition.y += 2;
+                player.style.bottom = playerPosition.y + 'px';
+                if (playerPosition.y >= 440) victory();
+                return;
+            }
+            
+            // Movimiento horizontal con límite en la escalera
+            if (playerMovement.left && playerPosition.x > 20) playerPosition.x -= 5;
+            if (playerMovement.right && playerPosition.x < ladderXPosition - 30) playerPosition.x += 5;  
+            player.style.left = playerPosition.x + 'px';
+            
+            // Verificar si está en contacto con la escalera
+            const playerRect = player.getBoundingClientRect();
+            const ladderRect = ladder.getBoundingClientRect();
+            
+            if (playerRect.right > ladderRect.left && playerRect.left < ladderRect.right && !isJumping && playerMovement.up) {
+                isClimbing = true;
+                player.style.left = ladderXPosition + 'px';
+                playerPosition.x = ladderXPosition;
+            }
         }
 
-        // Función para crear un nuevo barril
         function createBarrel() {
-            if (isGameOver) return;
+            if (isGameOver || !isGameStarted || isVictory) return;
             
+            // Mostrar y animar el barril de DK
+            donkeyBarrel.style.display = 'block';
+            donkey.style.top = '25px';
+            
+            setTimeout(() => {
+                donkey.style.top = '30px';
+                donkeyBarrel.classList.add('barrel-falling');
+                
+                setTimeout(() => {
+                    donkeyBarrel.style.display = 'none';
+                    donkeyBarrel.classList.remove('barrel-falling');
+                    
+                    createRealBarrel();
+                    
+                    if (barrelCount > 1) {
+                        let barrelsCreated = 1;
+                        multipleBarrelsTimer = setInterval(() => {
+                            if (barrelsCreated < barrelCount && !isGameOver && !isVictory) {
+                                createRealBarrel();
+                                barrelsCreated++;
+                            } else {
+                                clearInterval(multipleBarrelsTimer);
+                            }
+                        }, 300); 
+                    }
+                }, 1000);
+            }, 200);
+        }
+        
+        function createRealBarrel() {
             const barrel = document.createElement('div');
             barrel.className = 'barrel barrel-rolling';
-            barrel.style.right = '150px';
-            gameContainer.appendChild(barrel);
+            barrel.style.top = '170px';
+            barrel.style.right = '190px';
+            barrel.dataset.onLadder = 'true';
+            barrel.dataset.ladderProgress = '0';
+            game.appendChild(barrel);
             barrels.push(barrel);
-            
-            // Animación de Donkey Kong lanzando barril
-            animateDonkey();
         }
 
-        // Función para mover los barriles
         function moveBarrels() {
             for (let i = 0; i < barrels.length; i++) {
                 const barrel = barrels[i];
-                const currentRight = parseInt(barrel.style.right || '150');
-                const newRight = currentRight + gameSpeed;
                 
-                if (newRight > gameContainer.offsetWidth + 50) {
-                    gameContainer.removeChild(barrel);
-                    barrels.splice(i, 1);
-                    i--;
-                    score += 10;
-                    scoreElement.textContent = `Puntuación: ${score}`;
+                if (barrel.dataset.onLadder === 'true') {
+                    // Barril bajando por la escalera
+                    let progress = parseInt(barrel.dataset.ladderProgress) + barrelSpeed;
+                    barrel.dataset.ladderProgress = progress;
+                    barrel.style.top = (170 + progress) + 'px';
                     
-                    // Aumentar la velocidad del juego gradualmente
-                    if (score % 100 === 0 && gameSpeed < 8) {
-                        gameSpeed += 0.5;
+                    if (progress >= 350) {
+                        barrel.dataset.onLadder = 'false';
+                        barrel.style.top = '520px';
+                        barrel.style.right = '190px';
                     }
                 } else {
-                    barrel.style.right = `${newRight}px`;
-                    checkCollision(barrel);
+                    // Barril en suelo
+                    const newRight = parseInt(barrel.style.right || '0') + gameSpeed;
+                    barrel.style.right = newRight + 'px';
+                    
+                    if (newRight > game.offsetWidth + 50) {
+                        game.removeChild(barrel);
+                        barrels.splice(i--, 1);
+                        
+                        score += 10;
+                        scoreElement.textContent = `Puntuación: ${score}`;
+                        
+                        const speedIncrease = 0.05 + (score / 1000);
+                        if (gameSpeed < 12) gameSpeed += speedIncrease;
+                        if (barrelSpeed < 10) barrelSpeed += speedIncrease * 0.8;
+                        
+                        barrelCount = 1 + Math.floor(score / 50);
+                        if (barrelCount > 5) barrelCount = 5; 
+                        
+                        if (score % 50 === 0 && barrelInterval) {
+                            clearInterval(barrelInterval);
+                            barrelInterval = setInterval(createBarrel, Math.max(500, 3000 - (score * 2)));
+                        }
+                    }
+                }
+                
+                // Comprobar colisión (sólo si no está saltando o subiendo)
+                if (!isJumping && !isClimbing) {
+                    const playerRect = player.getBoundingClientRect();
+                    const barrelRect = barrel.getBoundingClientRect();
+                    
+                    if (playerRect.left + 10 < barrelRect.right - 5 &&
+                        playerRect.right - 10 > barrelRect.left + 5 &&
+                        playerRect.top + 10 < barrelRect.bottom - 5 &&
+                        playerRect.bottom - 5 > barrelRect.top + 5) {
+                        gameOver();
+                        game.removeChild(barrel);
+                        barrels.splice(barrels.indexOf(barrel), 1);
+                    }
                 }
             }
         }
 
-        // Función para comprobar colisión entre jugador y barril
-        function checkCollision(barrel) {
-            const playerRect = player.getBoundingClientRect();
-            const barrelRect = barrel.getBoundingClientRect();
-            
-            // Reducir el área de colisión para hacerlo más realista
-            const playerCollisionBox = {
-                left: playerRect.left + 10,
-                right: playerRect.right - 10,
-                top: playerRect.top + 10,
-                bottom: playerRect.bottom - 5
-            };
-            
-            const barrelCollisionBox = {
-                left: barrelRect.left + 5,
-                right: barrelRect.right - 5,
-                top: barrelRect.top + 5,
-                bottom: barrelRect.bottom - 5
-            };
-            
-            if (
-                playerCollisionBox.left < barrelCollisionBox.right &&
-                playerCollisionBox.right > barrelCollisionBox.left &&
-                playerCollisionBox.top < barrelCollisionBox.bottom &&
-                playerCollisionBox.bottom > barrelCollisionBox.top
-            ) {
-                handleCollision();
-                // Quitar el barril después de la colisión
-                gameContainer.removeChild(barrel);
-                barrels.splice(barrels.indexOf(barrel), 1);
-            }
-        }
-
-        // Función para manejar la colisión
-        function handleCollision() {
-            lives--;
-            livesElement.textContent = `Vidas: ${lives}`;
-            
-            // Efecto visual de colisión
-            player.style.opacity = '0.5';
-            setTimeout(() => {
-                player.style.opacity = '1';
-            }, 300);
-            
-            if (lives <= 0) {
-                gameOver();
-            }
-        }
-
-        // Función para terminar el juego
-        function gameOver() {
-            isGameOver = true;
-            clearInterval(barrelInterval);
-            gameOverElement.style.display = 'block';
-        }
-
-        // Función para reiniciar el juego
-        function restartGame() {
-            // Eliminar todos los barriles
-            barrels.forEach(barrel => {
-                if (barrel.parentNode) {
-                    gameContainer.removeChild(barrel);
-                }
-            });
-            barrels = [];
-            
-            // Reiniciar variables
-            score = 0;
-            lives = 3;
-            isGameOver = false;
-            gameSpeed = 3;
-            
-            // Actualizar UI
-            scoreElement.textContent = `Puntuación: ${score}`;
-            livesElement.textContent = `Vidas: ${lives}`;
-            gameOverElement.style.display = 'none';
-            
-            // Reiniciar intervalos
-            startGame();
-        }
-
-        // Función para iniciar el juego
-        function startGame() {
-            // Crear barriles periódicamente
-            barrelInterval = setInterval(createBarrel, 2000);
-            
-            // Actualizar el juego
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Bucle principal del juego
         function gameLoop() {
-            moveBarrels();
-            
-            if (!isGameOver) {
+            if (isGameStarted && !isGameOver && !isVictory) {
+                movePlayer();
+                moveBarrels();
                 requestAnimationFrame(gameLoop);
             }
         }
 
-        // Event listeners
-        document.addEventListener('keydown', function(event) {
-            if ((event.code === 'Space' || event.code === 'ArrowUp') && !event.repeat) {
-                jump();
-                event.preventDefault(); // Evitar scroll con la barra espaciadora
+        // Estados del juego
+        function startGame() {
+            isGameStarted = true;
+            isGameOver = isVictory = isClimbing = false;
+            screens.start.style.display = 'none';
+            barrelInterval = setInterval(createBarrel, 3000);
+            requestAnimationFrame(gameLoop);
+        }
+
+        function gameOver() {
+            isGameOver = true;
+            clearInterval(barrelInterval);
+            if (multipleBarrelsTimer) clearInterval(multipleBarrelsTimer);
+            screens.gameOver.style.display = 'block';
+        }
+
+        function victory() {
+            isVictory = true;
+            clearInterval(barrelInterval);
+            if (multipleBarrelsTimer) clearInterval(multipleBarrelsTimer);
+            player.style.animation = 'celebrate 0.5s infinite';
+            finalScoreElement.textContent = score;
+            screens.victory.style.display = 'block';
+        }
+
+        function restart() {
+            // Eliminar todos los barriles
+            while (barrels.length > 0) {
+                const barrel = barrels.pop();
+                if (barrel.parentNode) game.removeChild(barrel);
+            }
+            
+            // Reiniciar variables y elementos
+            donkeyBarrel.style.display = 'none';
+            donkeyBarrel.classList.remove('barrel-falling');
+            score = 0;
+            gameSpeed = 3;
+            barrelSpeed = 2;
+            barrelCount = 1;
+            playerPosition = { x: 100, y: 70 };
+            player.style.left = '100px';
+            player.style.bottom = '70px';
+            player.style.animation = '';
+            scoreElement.textContent = `Puntuación: 0`;
+            screens.gameOver.style.display = 'none';
+            screens.victory.style.display = 'none';
+            
+            startGame();
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.repeat) return;
+            
+            switch (e.code) {
+                case 'Space': jump(); e.preventDefault(); break;
+                case 'ArrowUp':
+                    if (!isGameStarted && !isGameOver && !isVictory) startGame();
+                    else playerMovement.up = true;
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft': playerMovement.left = true; break;
+                case 'ArrowRight': playerMovement.right = true; break;
+            }
+        });
+        
+        document.addEventListener('keyup', e => {
+            switch (e.code) {
+                case 'ArrowLeft': playerMovement.left = false; break;
+                case 'ArrowRight': playerMovement.right = false; break;
+                case 'ArrowUp': playerMovement.up = false; break;
             }
         });
 
-        // También permitir toques en móviles
-        gameContainer.addEventListener('touchstart', function(event) {
-            jump();
-            event.preventDefault(); // Evitar comportamiento predeterminado
+        // Control táctil
+        let touchStartX = 0;
+        
+        game.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+            
+            if (!isGameStarted) {
+                startGame();
+            } else if (isGameStarted && !isGameOver && !isVictory) {
+                const gameRect = game.getBoundingClientRect();
+                const touchXRelative = e.touches[0].clientX - gameRect.left;
+                
+                if (touchXRelative > gameRect.width * 0.4 && touchXRelative < gameRect.width * 0.6) {
+                    jump();
+                }
+            }
+            e.preventDefault();
+        });
+        
+        game.addEventListener('touchmove', e => {
+            if (!isGameStarted || isGameOver || isVictory) return;
+            
+            const touchX = e.touches[0].clientX;
+            const diffX = touchX - touchStartX;
+            
+            if (Math.abs(diffX) > 20) {
+                if (diffX > 0 && playerPosition.x < ladderXPosition - 30) {
+                    playerPosition.x += 5;
+                } else if (diffX < 0 && playerPosition.x > 20) {
+                    playerPosition.x -= 5;
+                }
+                player.style.left = playerPosition.x + 'px';
+                touchStartX = touchX;
+            }
+            e.preventDefault();
         });
 
-        restartBtn.addEventListener('click', restartGame);
-
-        // Iniciar el juego
-        startGame();
+        document.getElementById('start-btn').addEventListener('click', startGame);
+        document.getElementById('restart-btn').addEventListener('click', restart);
+        document.getElementById('victory-restart-btn').addEventListener('click', restart);
     </script>
 </body>
 </html>
